@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言系統</title>
+</head>
+<body>
+    <h3>輸入留言</h3>
+    <div>
+        <form action="/add_message" method="get">
+            <ul>
+            <li>姓&emsp;&emsp;名&nbsp;: <input type="text" name="name" id="" maxlength="15" size="20"></li>
+            <br></br>
+            <li>留&emsp;&emsp;言&nbsp;: <textarea name="message" id="" class="msg_input" rows="6" cols="20"></textarea></li>
+            <button class="send_btn" name="send_message">送出留言</button>
+            </ul>
+        </form>
+    </div>
+    <br>
+    <h3>留言列表</h3>
+    <div style="background-color:#FFD382;margin-bottom:5px;width:300px;">
+        <% if(message_list!==[] && message_list!==null){ %>
+            <% message_list.forEach(function(element){ %>
+                <div id="container">
+                    <div class="name">稱呼 <%= element.name %></div>
+                    <div class="clear_button_div">
+                        <form action="/clear" method="get">
+                            <button name= "clear_item" value= <%= element._id %> >清除</button>
+                        </form>
+                        
+                    </div>
+                    <div class="delete_button_div">
+                        <form action="/delete" method="get">
+                            <button name= "delete_item" value= <%= element._id %> >刪除</button>
+                        </form>
+                        
+                    </div>
+                    <div class="msg">留言 <%= element.message %> </div>
+                    
+                    <div class="date">日期 <%= element.date.year %>年<%= element.date.month %>月<%= element.date.day %>日
+                     <%= element.date.hours %>:<%= element.date.minutes %>:<%= element.date.seconds %>
+                    </div>
+                    
+                </div>
+                <hr>
+            <% }); %>
+        <% }; %>
+    </div>
+    <style>
+        .send_btn{
+            position:absolute;
+            margin: 1em;
+            left:230px;
+
+        }
+        .name{
+            display: inline-block;
+        }
+        .msg{
+            word-break:break-all;
+        }
+        .clear_button_div{
+            position:absolute;
+            display: inline-block;
+            left:210px;
+        }
+        .delete_button_div{
+            position:absolute;
+            display: inline-block;
+            left:260px;
+        }
+        .msg_input{   
+            height: 80px;
+        }
+    </style>
+</body>
+</html>
